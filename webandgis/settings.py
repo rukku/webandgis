@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     # Created apps
     'users',
     'layers',
+    'affected',
 
     # Third party apps
     'leaflet',
