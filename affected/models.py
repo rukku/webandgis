@@ -20,12 +20,10 @@ class Affected(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
     slug = models.SlugField(editable=False)
-    bbox = models.CharField(max_length=255, null=True, blank=True)
     original = models.FileField(storage=OverwriteStorage(),
                                 upload_to='uploads', null=True, blank=True,
                                 help_text="""Zip file with either geotiff and
                                         projection or shapefiles and friends""")
-    style = models.TextField(null=True, blank=True)
     # type = models.CharField(max_length=255)
 
     def __unicode__(self):
@@ -55,7 +53,7 @@ def create_folder(path):
 def affected_handler(sender, instance, *args, **kwargs):
     """
     Post process the uploaded affected
-    Get the bounding box information and save it with the model
+    Convert 
     """
 
     instance.slug = slugify(instance.name)
@@ -89,7 +87,7 @@ def affected_handler(sender, instance, *args, **kwargs):
         ds = DataSource(shapefile)
         affected = ds[0]
         extent = affected.extent.tuple
-        instance.bbox = ",".join(["%s" % x for x in extent])
+        
 
         #Create GeoJSON file
         output = os.path.join(zip_out, 'geometry.json')
