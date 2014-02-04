@@ -1,6 +1,7 @@
 <ul class="nav nav-pills">
     <li><a href="/">Home</a></li>
     <li><a href="{% url 'layers:index' %}">Layers</a></li>
+    <li><a href="{% url 'affected:index' %}">Affected Population</a></li>
 </ul>
 
 {% if not user.is_authenticated %}

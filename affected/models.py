@@ -62,36 +62,4 @@ def affected_handler(sender, instance, *args, **kwargs):
     # and create a 'raw' subdirectory to hold the files
     affected_folder = os.path.join(settings.MEDIA_ROOT, 'affecteds', instance.slug)
     create_folder(affected_folder)
-    zip_out = os.path.join(affected_folder, 'raw')
-    create_folder(zip_out)
-
-    # Iterate over the files in the zip and create them in the raw folder.
-    z = zipfile.ZipFile(instance.original)
-    for name in z.namelist():
-        outfile = open(os.path.join(zip_out, name), 'wb')
-        outfile.write(z.read(name))
-        outfile.close()
-
-    # Check if it is vector or raster
-    # if it has a .shp file, it is vector :)
-    os.chdir(zip_out)
-    shapefiles = glob.glob('*.shp')
-
-    if len(shapefiles) > 0:
-        # this means it is a vector
-
-        # FIXME(This is a very weak way to get the shapefile)
-        shapefile = shapefiles[0]
-
-        # Use ogr to inspect the file and get the bounding box
-        ds = DataSource(shapefile)
-        affected = ds[0]
-        extent = affected.extent.tuple
-        
-
-        #Create GeoJSON file
-        output = os.path.join(zip_out, 'geometry.json')
-        call(['ogr2ogr', '-f', 'GeoJSON',
-          output, shapefile])
-
-    # Render the tiles (if possible)
+ 
