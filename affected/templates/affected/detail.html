@@ -1,0 +1,38 @@
+{% extends "site_base.html" %}
+{% load leaflet_tags %}
+
+{% block body %}
+
+<h1>{{ affected.name }}</h1>
+
+<p>{{ affected.description }}</p>
+
+<p>
+    <a href={{ download }}>Download uploaded data</a>
+</p>
+
+{% leaflet_map "affectedmap" %}
+
+{% endblock %}
+
+{% block extra_script %}
+    {% leaflet_js %}
+    {% leaflet_css %}
+    <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.1.3"></script>
+    <script type="text/javascript">
+        function affectedmapInit(map, bounds) {
+            var stamen = new L.StamenTileLayer("watercolor");
+            stamen.addTo(map);
+
+            
+            // Pulls GeoJSON data and adds affected to the basemap
+            $.getJSON('{{ geojson }}', function(geojsonFeature){
+                var myLayer = L.geoJson().addTo(map);
+                myLayer.addData(geojsonFeature);
+
+                // Zooms map to geoJSON affected's bounds
+                map.fitBounds(myLayer.getBounds());
+            });
+        }
+    </script>
+{% endblock %}

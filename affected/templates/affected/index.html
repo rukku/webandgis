@@ -1,0 +1,15 @@
+{% extends "site_base.html" %}
+
+{% block body %}
+<h2>Affected</h2>
+{% if affected %}
+    <ul>
+    {% for affect in affected %}
+        <li><a href="{% url 'affected:detail' affect.slug %}">{{ affect.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No affected reports are available.</p>
+{% endif %}
+
+{% endblock %}

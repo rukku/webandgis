@@ -16,10 +16,12 @@ def index(request):
 def detail(request, affected_slug):
     affected = get_object_or_404(Affected, slug=affected_slug)
    
+    dlpath = affected.original.url
     #get GeoJSON file
     affected_folder = os.path.join(settings.MEDIA_URL, 'affected', affected_slug)
     geometryJSON = os.path.join(affected_folder, 'raw', 'geometry.json') 
     context = { 'affected': affected } 
+    context['download'] = dlpath
     context['geojson'] = geometryJSON 
 
     return render(request, 'affected/detail.html', context)
