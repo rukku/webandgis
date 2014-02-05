@@ -7,10 +7,18 @@
 
 <p>{{ affected.description }}</p>
 
+<h3> Download files</h3>
+
 <p>
-    <a href={{ download }}>Download uploaded data</a>
-    <a href={{ csv1 }}>Download uploaded data</a>
+    <a href={{ download }}> Uploaded data </a>
 </p>
+<p>
+    <a href={{ csv1 }}> Raw csv </a>
+</p>
+<p>
+    <a href={{ csv2 }}> SHP csv </a>
+</p>
+
 
 {% leaflet_map "affectedmap" %}
 

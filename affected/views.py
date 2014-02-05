@@ -26,8 +26,11 @@ def detail(request, affected_slug):
     geometryJSON = os.path.join(affected_folder, 'raw', 'geometry.json') 
 
     csvpath = os.path.join(settings.MEDIA_URL, 'affecteds', affected_slug, 'converted', filename+ "_raw.csv" )
+    csvpath2 = os.path.join(settings.MEDIA_URL, 'affecteds', affected_slug, 'converted', filename+ "SHP.csv" )
+
     context = { 'affected': affected } 
     context["csv1"] = csvpath
+    context["csv2"] = csvpath2
     context['download'] = dlpath
     context['geojson'] = geometryJSON 
 
