@@ -15,12 +15,19 @@ def index(request):
 
 def detail(request, affected_slug):
     affected = get_object_or_404(Affected, slug=affected_slug)
-   
+    
+    #Because the name is u'uploads/name'
+    filename = affected.original.name[8:]
+    
+
     dlpath = affected.original.url
     #get GeoJSON file
     affected_folder = os.path.join(settings.MEDIA_URL, 'affected', affected_slug)
     geometryJSON = os.path.join(affected_folder, 'raw', 'geometry.json') 
+
+    csvpath = os.path.join(settings.MEDIA_URL, 'affecteds', affected_slug, 'converted', filename+ "_raw.csv" )
     context = { 'affected': affected } 
+    context["csv1"] = csvpath
     context['download'] = dlpath
     context['geojson'] = geometryJSON 
 
