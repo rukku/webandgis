@@ -104,7 +104,7 @@ def affected_handler(sender, instance, *args, **kwargs):
     with open(outname2, 'wb') as f:
          writer = csv.writer(f, quoting=csv.QUOTE_ALL)
          writer.writerow( ('CALAMITYTYPE', 'REGION', 'PROVINCE', 'CITYMUNICIPALITY', 'NSCBCODE', 'AFFBGYS', 'AFFFAMILIES', 'AFFPERSONS', 'EVACCTRS', 'IEC_FAM', 'IEC_PERSONS', 'OEC_FAM', 'OEC_PERSONS', 'SERVED_FAMS', 'SERVED_PERSONS') )
-         calamityname = raw_input("What type of calamity is this?")
+         calamityname = "Typhoon"
          regCounter = 0
          provCounter = 1
          #removed 12 in xrange
